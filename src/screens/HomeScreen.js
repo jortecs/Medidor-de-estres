@@ -302,7 +302,7 @@ const HomeScreen = () => {
       <View style={styles.content}>
         {/* Título y descripción */}
         <View style={styles.header}>
-          <Text style={styles.title}>Detector de Estrés</Text>
+          <Text style={styles.title}>Detector de Estrés v2.0</Text>
           <Text style={styles.subtitle}>
             Mide tu frecuencia cardíaca y nivel de estrés usando la cámara de tu móvil
           </Text>
