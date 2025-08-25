@@ -26,8 +26,6 @@ const HomeScreen = () => {
   const [stressLevel, setStressLevel] = useState(null);
   const [measurementQuality, setMeasurementQuality] = useState(0);
   const [pulseData, setPulseData] = useState([]);
-  const [dailyMeasurements, setDailyMeasurements] = useState(0);
-  const [isPremium, setIsPremium] = useState(false);
 
   // Referencias
   const pulseAnimation = useRef(new Animated.Value(0)).current;
@@ -49,16 +47,10 @@ const HomeScreen = () => {
   // Cargar estado del usuario
   const loadUserStatus = async () => {
     try {
-      const subscriptionStatus = await getSubscriptionStatus();
-      setIsPremium(subscriptionStatus.isPremium);
-      
-      const dailyCount = await checkDailyLimit();
-      setDailyMeasurements(dailyCount);
+      // En la versión web, no necesitamos verificar suscripción
+      console.log('Aplicación web cargada correctamente');
     } catch (error) {
       console.error('Error al cargar estado del usuario:', error);
-      // Valores por defecto para web
-      setIsPremium(false);
-      setDailyMeasurements(0);
     }
   };
 
@@ -83,19 +75,6 @@ const HomeScreen = () => {
   // Iniciar medición
   const startMeasurement = async () => {
     try {
-      // Verificar límite diario para usuarios gratuitos
-      if (!isPremium && dailyMeasurements >= 3) {
-        Alert.alert(
-          'Límite alcanzado',
-          'Has alcanzado el límite de 3 mediciones gratuitas por día. Actualiza a premium para mediciones ilimitadas.',
-          [
-            {text: 'Cancelar', style: 'cancel'},
-            {text: 'Actualizar', onPress: () => {/* Navegar a configuración */}},
-          ]
-        );
-        return;
-      }
-
       setIsMeasuring(true);
       setHeartRate(null);
       setStressLevel(null);
@@ -193,17 +172,9 @@ const HomeScreen = () => {
         console.log('No se pudo guardar la medición en web');
       }
       
-      // Incrementar contador diario
-      setDailyMeasurements(prev => prev + 1);
+      // La medición se completó exitosamente
 
-      // Mostrar anuncio para usuarios gratuitos
-      if (!isPremium) {
-        try {
-          await showAd();
-        } catch (error) {
-          console.log('Anuncios no disponibles en web');
-        }
-      }
+      // Simulación completada
 
       setIsMeasuring(false);
     } catch (error) {
@@ -333,20 +304,32 @@ const HomeScreen = () => {
         <View style={styles.header}>
           <Text style={styles.title}>Detector de Estrés</Text>
           <Text style={styles.subtitle}>
-            Versión web - Simulación de medición de frecuencia cardíaca y nivel de estrés
+            Mide tu frecuencia cardíaca y nivel de estrés usando la cámara de tu móvil
           </Text>
         </View>
 
-        {/* Indicador de mediciones diarias */}
-        <View style={styles.dailyLimitContainer}>
-          <Text style={styles.dailyLimitText}>
-            Mediciones hoy: {dailyMeasurements}/3
+        {/* Instrucciones de uso */}
+        <View style={styles.instructionsContainer}>
+          <Text style={styles.instructionsTitle}>📋 Instrucciones de Uso</Text>
+          <Text style={styles.instructionsText}>
+            • Coloca tu dedo índice sobre la cámara del móvil{'\n'}
+            • Mantén el dedo firme y sin mover durante 30 segundos{'\n'}
+            • La app usa el flash para iluminar tu dedo{'\n'}
+            • Detecta cambios en el color de tu piel (tecnología PPG){'\n'}
+            • Mide tu frecuencia cardíaca y calcula el nivel de estrés{'\n'}
+            • Puedes realizar mediciones ilimitadas
           </Text>
-          {!isPremium && (
-            <Text style={styles.premiumHint}>
-              Actualiza a premium para mediciones ilimitadas
-            </Text>
-          )}
+        </View>
+
+        {/* Explicación de PPG */}
+        <View style={styles.ppgContainer}>
+          <Text style={styles.ppgTitle}>💡 ¿Cómo funciona la medición?</Text>
+          <Text style={styles.ppgText}>
+            <Text style={styles.bold}>PPG (Fotopletismografía):</Text> La luz del flash atraviesa tu piel y es absorbida por la hemoglobina en tu sangre. Cuando tu corazón late, el flujo sanguíneo cambia, alterando la cantidad de luz que se refleja. La cámara detecta estos cambios microscópicos y calcula tu frecuencia cardíaca.
+          </Text>
+          <Text style={styles.ppgText}>
+            <Text style={styles.bold}>Nivel de Estrés:</Text> Se calcula analizando la variabilidad entre latidos. Un corazón estresado tiene latidos más regulares y rápidos, mientras que uno relajado tiene más variabilidad natural.
+          </Text>
         </View>
 
         {/* Cámara simulada */}
@@ -354,7 +337,7 @@ const HomeScreen = () => {
           <View style={styles.cameraPlaceholder}>
             <Icon name="camera-alt" size={80} color="#666" />
             <Text style={styles.cameraText}>
-              {isMeasuring ? 'Simulando medición...' : 'Simulación de cámara'}
+              {isMeasuring ? 'Coloca tu dedo sobre la cámara...' : 'Coloca tu dedo aquí'}
             </Text>
             
             {isMeasuring && (
@@ -394,7 +377,7 @@ const HomeScreen = () => {
           disabled={isMeasuring}
         >
           <Text style={styles.measureButtonText}>
-            {isMeasuring ? 'Simulando...' : 'Iniciar Simulación'}
+            {isMeasuring ? 'Midiendo...' : 'Iniciar Medición'}
           </Text>
         </TouchableOpacity>
 
@@ -432,23 +415,48 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 22,
   },
-  dailyLimitContainer: {
+  instructionsContainer: {
     backgroundColor: '#fff',
-    padding: 15,
-    borderRadius: 10,
+    padding: 20,
+    borderRadius: 15,
     marginBottom: 20,
-    alignItems: 'center',
+    borderLeftWidth: 4,
+    borderLeftColor: '#4CAF50',
   },
-  dailyLimitText: {
-    fontSize: 16,
-    fontWeight: '600',
+  instructionsTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
     color: '#333',
+    marginBottom: 15,
   },
-  premiumHint: {
+  instructionsText: {
     fontSize: 14,
     color: '#666',
-    marginTop: 5,
-    textAlign: 'center',
+    lineHeight: 22,
+  },
+  ppgContainer: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 15,
+    marginBottom: 20,
+    borderLeftWidth: 4,
+    borderLeftColor: '#2196F3',
+  },
+  ppgTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 15,
+  },
+  ppgText: {
+    fontSize: 14,
+    color: '#666',
+    lineHeight: 22,
+    marginBottom: 10,
+  },
+  bold: {
+    fontWeight: 'bold',
+    color: '#333',
   },
   cameraContainer: {
     alignItems: 'center',
