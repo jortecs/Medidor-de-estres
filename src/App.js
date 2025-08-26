@@ -65,6 +65,12 @@ const HomeScreen = () => {
   const startCamera = async () => {
     try {
       console.log('Solicitando acceso a la cámara...');
+      
+      // Detener stream anterior si existe
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+      
       const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: 'environment',
@@ -76,6 +82,7 @@ const HomeScreen = () => {
       console.log('Stream obtenido:', mediaStream);
       setStream(mediaStream);
       setError(null);
+      setIsCameraReady(false); // Resetear estado
       
       if (videoRef.current) {
         videoRef.current.srcObject = mediaStream;
@@ -83,11 +90,17 @@ const HomeScreen = () => {
         // Configurar eventos del video
         videoRef.current.onloadedmetadata = () => {
           console.log('Video metadata cargado');
+          console.log('Dimensiones:', videoRef.current.videoWidth, 'x', videoRef.current.videoHeight);
           setIsCameraReady(true);
         };
         
         videoRef.current.oncanplay = () => {
           console.log('Video puede reproducirse');
+          setIsCameraReady(true);
+        };
+        
+        videoRef.current.onplay = () => {
+          console.log('Video comenzó a reproducirse');
           setIsCameraReady(true);
         };
         
@@ -108,7 +121,7 @@ const HomeScreen = () => {
             console.log('Timeout de seguridad - marcando cámara como lista');
             setIsCameraReady(true);
           }
-        }, 5000); // 5 segundos máximo
+        }, 3000); // 3 segundos máximo
       }
       
     } catch (err) {
@@ -220,21 +233,23 @@ const HomeScreen = () => {
     try {
       console.log('Iniciando medición...');
       
-      // Si no hay stream, iniciar cámara
-      if (!stream) {
-        console.log('No hay stream, iniciando cámara...');
-        await startCamera();
-        // Esperar 2 segundos para que la cámara se inicialice
-        setTimeout(() => {
-          console.log('Iniciando medición después de inicializar cámara...');
+      // Siempre iniciar cámara primero
+      console.log('Iniciando cámara...');
+      await startCamera();
+      
+      // Esperar a que la cámara esté lista
+      const waitForCamera = () => {
+        if (isCameraReady && videoRef.current && videoRef.current.videoWidth > 0) {
+          console.log('Cámara lista, iniciando medición...');
           startMeasurementProcess();
-        }, 2000);
-        return;
-      }
-
-      // Si ya hay stream, iniciar medición directamente
-      console.log('Stream existente, iniciando medición...');
-      startMeasurementProcess();
+        } else {
+          console.log('Esperando cámara...');
+          setTimeout(waitForCamera, 500);
+        }
+      };
+      
+      // Iniciar verificación después de un breve delay
+      setTimeout(waitForCamera, 1000);
       
     } catch (error) {
       console.error('Error al iniciar medición:', error);
@@ -424,7 +439,8 @@ const HomeScreen = () => {
                 width: '100%', 
                 maxWidth: '300px', 
                 borderRadius: '10px',
-                display: stream ? 'block' : 'none'
+                display: stream ? 'block' : 'none',
+                objectFit: 'cover'
               }}
             />
             <canvas
