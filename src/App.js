@@ -18,11 +18,6 @@ const HomeScreen = () => {
   }, []);
 
   const startMeasurement = () => {
-    if (dailyCount >= 3) {
-      alert('Has alcanzado el límite diario.');
-      return;
-    }
-
     setIsMeasuring(true);
     
     setTimeout(() => {
@@ -45,9 +40,7 @@ const HomeScreen = () => {
       measurements.unshift(newResult);
       localStorage.setItem('measurements', JSON.stringify(measurements));
       
-      const newCount = dailyCount + 1;
-      setDailyCount(newCount);
-      localStorage.setItem('dailyCount', newCount.toString());
+      // Eliminado el contador de límite diario - mediciones ilimitadas
     }, 3000);
   };
 
@@ -70,8 +63,56 @@ const HomeScreen = () => {
         <p>Coloca tu dedo sobre la cámara para medir tu nivel de estrés</p>
       </div>
 
+      <div className="instructions-container">
+        <h3>📋 Instrucciones de Uso</h3>
+        <div className="instruction-steps">
+          <div className="instruction-step">
+            <span className="step-number">1</span>
+            <div className="step-content">
+              <strong>Prepara tu dispositivo:</strong>
+              <p>• Asegúrate de que la cámara y el flash estén limpios</p>
+              <p>• Coloca el dispositivo en una superficie estable</p>
+              <p>• Mantén el dispositivo a temperatura ambiente</p>
+            </div>
+          </div>
+          
+          <div className="instruction-step">
+            <span className="step-number">2</span>
+            <div className="step-content">
+              <strong>Posiciona tu dedo:</strong>
+              <p>• Usa tu dedo índice de la mano dominante</p>
+              <p>• Coloca el dedo firmemente sobre la cámara</p>
+              <p>• Cubre completamente la lente de la cámara</p>
+              <p>• El flash debe iluminar tu dedo desde atrás</p>
+            </div>
+          </div>
+          
+          <div className="instruction-step">
+            <span className="step-number">3</span>
+            <div className="step-content">
+              <strong>Durante la medición:</strong>
+              <p>• Mantén el dedo completamente inmóvil</p>
+              <p>• No presiones demasiado fuerte</p>
+              <p>• Respira normalmente</p>
+              <p>• Evita hablar o movimientos bruscos</p>
+            </div>
+          </div>
+          
+          <div className="instruction-step">
+            <span className="step-number">4</span>
+            <div className="step-content">
+              <strong>¿Cómo funciona?</strong>
+              <p>• El flash ilumina tu dedo con luz blanca</p>
+              <p>• La cámara detecta cambios en el color de tu piel</p>
+              <p>• Estos cambios corresponden a tu pulso sanguíneo</p>
+              <p>• La app calcula tu frecuencia cardíaca y nivel de estrés</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="daily-limit">
-        <p>Mediciones hoy: {dailyCount}/3</p>
+        <p>✅ Mediciones ilimitadas disponibles</p>
       </div>
 
       <div className="camera-container">

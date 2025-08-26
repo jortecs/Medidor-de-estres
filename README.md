@@ -5,6 +5,8 @@ Una aplicación web para medir y gestionar el nivel de estrés mediante la simul
 ## 🌟 Características
 
 - **Medición Simulada**: Simula la medición de frecuencia cardíaca y nivel de estrés
+- **Mediciones Ilimitadas**: Sin restricciones de uso diario
+- **Instrucciones Detalladas**: Guía completa sobre el uso de la cámara y flash
 - **Historial**: Visualiza tus mediciones anteriores con estadísticas
 - **Consejos**: Accede a técnicas de relajación y gestión del estrés
 - **Configuración**: Personaliza tu experiencia con la aplicación
@@ -27,9 +29,11 @@ Visita la aplicación en: [https://jortecs.github.io/Medidor-de-estres](https://
 
 ### 🏠 Pantalla Principal
 - Simulación de medición de frecuencia cardíaca
+- **Instrucciones detalladas de uso con cámara y flash**
 - Indicador de calidad de señal
 - Resultados en tiempo real
 - Gráfico de señal PPG
+- **Mediciones ilimitadas sin restricciones**
 
 ### 📊 Historial
 - Lista de mediciones anteriores
@@ -50,6 +54,36 @@ Visita la aplicación en: [https://jortecs.github.io/Medidor-de-estres](https://
 - Preferencias de la aplicación
 - Gestión de datos
 - Información de la app
+
+## 📋 Instrucciones de Uso
+
+### Cómo usar el medidor con la cámara y flash:
+
+1. **Prepara tu dispositivo:**
+   - Asegúrate de que la cámara y el flash estén limpios
+   - Coloca el dispositivo en una superficie estable
+   - Mantén el dispositivo a temperatura ambiente
+
+2. **Posiciona tu dedo:**
+   - Usa tu dedo índice de la mano dominante
+   - Coloca el dedo firmemente sobre la cámara
+   - Cubre completamente la lente de la cámara
+   - El flash debe iluminar tu dedo desde atrás
+
+3. **Durante la medición:**
+   - Mantén el dedo completamente inmóvil
+   - No presiones demasiado fuerte
+   - Respira normalmente
+   - Evita hablar o movimientos bruscos
+
+4. **¿Cómo funciona?**
+   - El flash ilumina tu dedo con luz blanca
+   - La cámara detecta cambios en el color de tu piel
+   - Estos cambios corresponden a tu pulso sanguíneo
+   - La app calcula tu frecuencia cardíaca y nivel de estrés
+
+### Tecnología PPG (Fotopletismografía):
+La aplicación utiliza la tecnología PPG para medir tu frecuencia cardíaca. El flash ilumina tu dedo y la cámara detecta los cambios microscópicos en el color de tu piel que ocurren con cada latido del corazón. Estos datos se procesan para calcular tu nivel de estrés basado en la variabilidad de tu frecuencia cardíaca.
 
 ## 🚀 Instalación y Desarrollo
 

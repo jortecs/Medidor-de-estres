@@ -161,34 +161,22 @@ export const restorePurchases = async () => {
   }
 };
 
-// Verificar límite diario
+// Verificar límite diario - ELIMINADO: Mediciones ilimitadas
 export const checkDailyLimit = async () => {
   try {
-    if (subscriptionStatus.isPremium) {
-      return 999; // Usuarios premium tienen límite muy alto
-    }
-    
-    // Para usuarios gratuitos, verificar límite diario
-    const today = new Date().toDateString();
-    const dailyCount = localStorage.getItem(`daily_count_${today}`) || 0;
-    
-    return parseInt(dailyCount);
+    // Mediciones ilimitadas para todos los usuarios
+    return 999999;
   } catch (error) {
     console.error('Error al verificar límite diario en web:', error);
-    return 0;
+    return 999999;
   }
 };
 
-// Incrementar contador diario
+// Incrementar contador diario - ELIMINADO: No se necesita contador
 export const incrementDailyCount = async () => {
   try {
-    if (subscriptionStatus.isPremium) {
-      return; // Usuarios premium no tienen límite
-    }
-    
-    const today = new Date().toDateString();
-    const currentCount = parseInt(localStorage.getItem(`daily_count_${today}`) || 0);
-    localStorage.setItem(`daily_count_${today}`, currentCount + 1);
+    // No se incrementa contador - mediciones ilimitadas
+    return;
   } catch (error) {
     console.error('Error al incrementar contador diario en web:', error);
   }
