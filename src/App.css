@@ -39,7 +39,6 @@ body {
 .app-logo {
   width: 120px;
   height: 120px;
-  border-radius: 50%;
   box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
   animation: logoGlow 2s ease-in-out infinite alternate;
 }

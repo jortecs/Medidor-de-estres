@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
-import stressDetectorLogo from './assets/stress-detector-logo.svg';
+import stressDetectorLogo from './assets/logo.png';
 
 const LoadingScreen = () => (
   <div className="loading-container">
