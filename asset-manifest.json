@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/Medidor-de-estres/static/css/main.1e9941eb.css",
-    "main.js": "/Medidor-de-estres/static/js/main.1261ced0.js",
+    "main.css": "/Medidor-de-estres/static/css/main.8f51f258.css",
+    "main.js": "/Medidor-de-estres/static/js/main.7a122f54.js",
     "static/media/logo.png": "/Medidor-de-estres/static/media/logo.803224beb3c5e8466833.png",
     "index.html": "/Medidor-de-estres/index.html",
-    "main.1e9941eb.css.map": "/Medidor-de-estres/static/css/main.1e9941eb.css.map",
-    "main.1261ced0.js.map": "/Medidor-de-estres/static/js/main.1261ced0.js.map"
+    "main.8f51f258.css.map": "/Medidor-de-estres/static/css/main.8f51f258.css.map",
+    "main.7a122f54.js.map": "/Medidor-de-estres/static/js/main.7a122f54.js.map"
   },
   "entrypoints": [
-    "static/css/main.1e9941eb.css",
-    "static/js/main.1261ced0.js"
+    "static/css/main.8f51f258.css",
+    "static/js/main.7a122f54.js"
   ]
 }
