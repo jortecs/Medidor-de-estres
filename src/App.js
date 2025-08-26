@@ -63,6 +63,7 @@ const HomeScreen = () => {
 
   const startCamera = async () => {
     try {
+      console.log('Solicitando acceso a la cámara...');
       const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: 'environment',
@@ -70,19 +71,39 @@ const HomeScreen = () => {
           height: { ideal: 480 }
         }
       });
+      
+      console.log('Stream obtenido:', mediaStream);
       setStream(mediaStream);
+      
       if (videoRef.current) {
         videoRef.current.srcObject = mediaStream;
+        
         // Esperar a que el video esté listo
         videoRef.current.onloadedmetadata = () => {
-          console.log('Video listo para medición');
+          console.log('Video metadata cargado');
+          console.log('Video dimensions:', videoRef.current.videoWidth, 'x', videoRef.current.videoHeight);
           setIsCameraReady(true);
         };
+        
+        // También escuchar el evento canplay
+        videoRef.current.oncanplay = () => {
+          console.log('Video puede reproducirse');
+          setIsCameraReady(true);
+        };
+        
+        // Forzar el play del video
+        try {
+          await videoRef.current.play();
+          console.log('Video iniciado correctamente');
+        } catch (playError) {
+          console.error('Error al reproducir video:', playError);
+        }
       }
+      
       setError(null);
     } catch (err) {
-      setError('No se pudo acceder a la cámara. Verifica los permisos.');
       console.error('Error accessing camera:', err);
+      setError('No se pudo acceder a la cámara. Verifica los permisos.');
     }
   };
 
@@ -186,30 +207,47 @@ const HomeScreen = () => {
   };
 
   const startMeasurement = async () => {
-    // Si no hay stream, iniciar cámara primero
-    if (!stream) {
-      await startCamera();
-      // Esperar un momento para que la cámara se inicialice
-      setTimeout(() => {
-        if (isCameraReady) {
-          startMeasurementProcess();
-        }
-      }, 1000);
-      return;
-    }
+    try {
+      // Si no hay stream, iniciar cámara primero
+      if (!stream) {
+        console.log('Iniciando cámara...');
+        await startCamera();
+        // Esperar a que la cámara esté lista
+        const checkCameraReady = () => {
+          if (isCameraReady && videoRef.current && videoRef.current.videoWidth > 0) {
+            console.log('Cámara lista, iniciando medición...');
+            startMeasurementProcess();
+          } else {
+            console.log('Esperando cámara...');
+            setTimeout(checkCameraReady, 500);
+          }
+        };
+        checkCameraReady();
+        return;
+      }
 
-    // Si ya hay stream pero no está listo, esperar
-    if (!isCameraReady) {
-      setTimeout(() => {
-        if (isCameraReady) {
-          startMeasurementProcess();
-        }
-      }, 500);
-      return;
-    }
+      // Si ya hay stream pero no está listo, esperar
+      if (!isCameraReady || !videoRef.current || videoRef.current.videoWidth === 0) {
+        console.log('Cámara no lista, esperando...');
+        const checkCameraReady = () => {
+          if (isCameraReady && videoRef.current && videoRef.current.videoWidth > 0) {
+            console.log('Cámara lista, iniciando medición...');
+            startMeasurementProcess();
+          } else {
+            setTimeout(checkCameraReady, 500);
+          }
+        };
+        checkCameraReady();
+        return;
+      }
 
-    // Si todo está listo, iniciar medición
-    startMeasurementProcess();
+      // Si todo está listo, iniciar medición
+      console.log('Iniciando medición directamente...');
+      startMeasurementProcess();
+    } catch (error) {
+      console.error('Error al iniciar medición:', error);
+      setError('Error al iniciar la medición. Intenta de nuevo.');
+    }
   };
 
   const startMeasurementProcess = () => {
@@ -300,13 +338,6 @@ const HomeScreen = () => {
 
       <div className="instructions-container">
         <h3>📋 Instrucciones Rápidas</h3>
-        <div className="instruction-demo">
-          <img 
-            src={phoneFlashGif} 
-            alt="Demostración del uso del flash" 
-            className="instruction-gif"
-          />
-        </div>
         <div className="instruction-steps">
           <div className="instruction-step">
             <span className="step-number">1</span>
@@ -338,6 +369,13 @@ const HomeScreen = () => {
               <p>• Calcula tu nivel de estrés</p>
             </div>
           </div>
+        </div>
+        <div className="instruction-demo">
+          <img 
+            src={phoneFlashGif} 
+            alt="Demostración del uso del flash" 
+            className="instruction-gif"
+          />
         </div>
       </div>
 
