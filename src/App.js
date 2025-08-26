@@ -381,31 +381,21 @@ const HomeScreen = () => {
           <div className="instruction-step">
             <span className="step-number">1</span>
             <div className="step-content">
-              <strong>Prepara tu dedo:</strong>
-              <p>• Limpia tu dedo índice</p>
-              <p>• Colócalo firmemente sobre la cámara</p>
-              <p>• Cubre completamente la lente</p>
+              <p>Dale al botón del medidor</p>
             </div>
           </div>
           
           <div className="instruction-step">
             <span className="step-number">2</span>
             <div className="step-content">
-              <strong>Durante la medición:</strong>
-              <p>• Mantén el dedo inmóvil</p>
-              <p>• Respira normalmente</p>
-              <p>• Espera 10 segundos</p>
+              <p>Enciende el flash</p>
             </div>
           </div>
           
           <div className="instruction-step">
             <span className="step-number">3</span>
             <div className="step-content">
-              <strong>¿Cómo funciona?</strong>
-              <p>• El flash ilumina tu dedo</p>
-              <p>• La cámara detecta cambios de color</p>
-              <p>• Analiza tu pulso sanguíneo</p>
-              <p>• Calcula tu nivel de estrés</p>
+              <p>Coloca tu dedo donde brilla el flash y tapa la cámara</p>
             </div>
           </div>
         </div>
@@ -531,6 +521,7 @@ const HomeScreen = () => {
               </div>
             </div>
           </div>
+          <QuickTips />
         </div>
       )}
     </div>
@@ -663,6 +654,32 @@ const TipsScreen = () => {
   );
 };
 
+const QuickTips = () => {
+  return (
+    <div className="quick-tips">
+      <h3>💡 Consejos Rápidos</h3>
+      <div className="tips-grid">
+        <div className="quick-tip">
+          <span className="tip-emoji">🧘</span>
+          <p>Respira profundo 5 veces</p>
+        </div>
+        <div className="quick-tip">
+          <span className="tip-emoji">🚶</span>
+          <p>Camina 30 minutos</p>
+        </div>
+        <div className="quick-tip">
+          <span className="tip-emoji">💧</span>
+          <p>Bebe mucha agua</p>
+        </div>
+        <div className="quick-tip">
+          <span className="tip-emoji">😴</span>
+          <p>Duerme bien</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const SettingsScreen = () => {
   return (
     <div className="screen">
@@ -714,6 +731,7 @@ function App() {
       <header className="app-header">
         <div className="header-content">
           <img src={stressDetectorLogo} alt="Stress Detector Logo" className="app-logo" />
+          <h1>Medidor de Estrés</h1>
         </div>
         <nav className="app-nav">
           <button 
