@@ -74,24 +74,23 @@ const HomeScreen = () => {
       
       console.log('Stream obtenido:', mediaStream);
       setStream(mediaStream);
+      setError(null);
       
       if (videoRef.current) {
         videoRef.current.srcObject = mediaStream;
         
-        // Esperar a que el video esté listo
+        // Configurar eventos del video
         videoRef.current.onloadedmetadata = () => {
           console.log('Video metadata cargado');
-          console.log('Video dimensions:', videoRef.current.videoWidth, 'x', videoRef.current.videoHeight);
           setIsCameraReady(true);
         };
         
-        // También escuchar el evento canplay
         videoRef.current.oncanplay = () => {
           console.log('Video puede reproducirse');
           setIsCameraReady(true);
         };
         
-        // Forzar el play del video
+        // Intentar reproducir el video
         try {
           await videoRef.current.play();
           console.log('Video iniciado correctamente');
@@ -100,7 +99,6 @@ const HomeScreen = () => {
         }
       }
       
-      setError(null);
     } catch (err) {
       console.error('Error accessing camera:', err);
       setError('No se pudo acceder a la cámara. Verifica los permisos.');
@@ -208,42 +206,24 @@ const HomeScreen = () => {
 
   const startMeasurement = async () => {
     try {
-      // Si no hay stream, iniciar cámara primero
+      console.log('Iniciando medición...');
+      
+      // Si no hay stream, iniciar cámara
       if (!stream) {
-        console.log('Iniciando cámara...');
+        console.log('No hay stream, iniciando cámara...');
         await startCamera();
-        // Esperar a que la cámara esté lista
-        const checkCameraReady = () => {
-          if (isCameraReady && videoRef.current && videoRef.current.videoWidth > 0) {
-            console.log('Cámara lista, iniciando medición...');
-            startMeasurementProcess();
-          } else {
-            console.log('Esperando cámara...');
-            setTimeout(checkCameraReady, 500);
-          }
-        };
-        checkCameraReady();
+        // Esperar 2 segundos para que la cámara se inicialice
+        setTimeout(() => {
+          console.log('Iniciando medición después de inicializar cámara...');
+          startMeasurementProcess();
+        }, 2000);
         return;
       }
 
-      // Si ya hay stream pero no está listo, esperar
-      if (!isCameraReady || !videoRef.current || videoRef.current.videoWidth === 0) {
-        console.log('Cámara no lista, esperando...');
-        const checkCameraReady = () => {
-          if (isCameraReady && videoRef.current && videoRef.current.videoWidth > 0) {
-            console.log('Cámara lista, iniciando medición...');
-            startMeasurementProcess();
-          } else {
-            setTimeout(checkCameraReady, 500);
-          }
-        };
-        checkCameraReady();
-        return;
-      }
-
-      // Si todo está listo, iniciar medición
-      console.log('Iniciando medición directamente...');
+      // Si ya hay stream, iniciar medición directamente
+      console.log('Stream existente, iniciando medición...');
       startMeasurementProcess();
+      
     } catch (error) {
       console.error('Error al iniciar medición:', error);
       setError('Error al iniciar la medición. Intenta de nuevo.');
