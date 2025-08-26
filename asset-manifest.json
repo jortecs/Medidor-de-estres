@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Medidor-de-estres/static/css/main.9fdd1d6d.css",
-    "main.js": "/Medidor-de-estres/static/js/main.85efbb1f.js",
+    "main.css": "/Medidor-de-estres/static/css/main.b288354d.css",
+    "main.js": "/Medidor-de-estres/static/js/main.791ca22e.js",
     "static/media/logo.png": "/Medidor-de-estres/static/media/logo.803224beb3c5e8466833.png",
     "static/media/phoneflash.gif": "/Medidor-de-estres/static/media/phoneflash.5475b5745f261ea817fd.gif",
     "index.html": "/Medidor-de-estres/index.html",
-    "main.9fdd1d6d.css.map": "/Medidor-de-estres/static/css/main.9fdd1d6d.css.map",
-    "main.85efbb1f.js.map": "/Medidor-de-estres/static/js/main.85efbb1f.js.map"
+    "main.b288354d.css.map": "/Medidor-de-estres/static/css/main.b288354d.css.map",
+    "main.791ca22e.js.map": "/Medidor-de-estres/static/js/main.791ca22e.js.map"
   },
   "entrypoints": [
-    "static/css/main.9fdd1d6d.css",
-    "static/js/main.85efbb1f.js"
+    "static/css/main.b288354d.css",
+    "static/js/main.791ca22e.js"
   ]
 }
