@@ -18,6 +18,7 @@ const HomeScreen = () => {
   const [error, setError] = useState(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [flashEnabled, setFlashEnabled] = useState(false);
+  const [measurementInterval, setMeasurementInterval] = useState(null);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
@@ -244,9 +245,12 @@ const HomeScreen = () => {
       }
     }, 100); // Medir cada 100ms
 
+    setMeasurementInterval(measureInterval);
+
     // Medir durante 10 segundos
     setTimeout(() => {
       clearInterval(measureInterval);
+      setMeasurementInterval(null);
       
       if (measurements.length > 0) {
         // Calcular promedios
@@ -280,6 +284,7 @@ const HomeScreen = () => {
           heartRate: Math.floor(Math.random() * 40) + 60,
           hrv: Math.floor(Math.random() * 30) + 30,
           timestamp: new Date().toISOString(),
+          timestamp: new Date().toISOString(),
           quality: Math.floor(Math.random() * 20) + 80
         };
         setResult(simulatedResult);
@@ -291,6 +296,15 @@ const HomeScreen = () => {
 
       setIsMeasuring(false);
     }, 10000); // 10 segundos de medición
+  };
+
+  const cancelMeasurement = () => {
+    if (measurementInterval) {
+      clearInterval(measurementInterval);
+      setMeasurementInterval(null);
+    }
+    setIsMeasuring(false);
+    setResult(null);
   };
 
   const getStressColor = (level) => {
@@ -376,7 +390,12 @@ const HomeScreen = () => {
               autoPlay
               playsInline
               muted
-              style={{ width: '100%', maxWidth: '300px', borderRadius: '10px' }}
+              style={{ 
+                width: '100%', 
+                maxWidth: '300px', 
+                borderRadius: '10px',
+                display: stream ? 'block' : 'none'
+              }}
             />
             <canvas
               ref={canvasRef}
@@ -389,6 +408,12 @@ const HomeScreen = () => {
                 <div className="progress-bar">
                   <div className="progress-fill"></div>
                 </div>
+                <button 
+                  className="cancel-button"
+                  onClick={cancelMeasurement}
+                >
+                  ❌ Cancelar
+                </button>
               </div>
             )}
             <button 
@@ -403,6 +428,13 @@ const HomeScreen = () => {
           <div className="camera-placeholder">
             <div className="camera-icon">📷</div>
             <p>Haz clic en "Iniciar Medición" para activar la cámara</p>
+          </div>
+        )}
+        
+        {stream && !videoRef.current?.videoWidth && (
+          <div className="camera-loading">
+            <div className="loading-spinner"></div>
+            <p>Inicializando cámara...</p>
           </div>
         )}
       </div>
