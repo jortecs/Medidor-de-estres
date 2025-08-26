@@ -167,6 +167,23 @@ body {
   text-align: center;
 }
 
+.instruction-demo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  border: 2px dashed #4CAF50;
+}
+
+.instruction-gif {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
 .instruction-steps {
   display: flex;
   flex-direction: column;

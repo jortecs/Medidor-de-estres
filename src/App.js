@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import stressDetectorLogo from './assets/logo.png';
+import phoneFlashGif from './assets/phoneflash.gif';
 
 const LoadingScreen = () => (
   <div className="loading-container">
@@ -299,6 +300,13 @@ const HomeScreen = () => {
 
       <div className="instructions-container">
         <h3>📋 Instrucciones Rápidas</h3>
+        <div className="instruction-demo">
+          <img 
+            src={phoneFlashGif} 
+            alt="Demostración del uso del flash" 
+            className="instruction-gif"
+          />
+        </div>
         <div className="instruction-steps">
           <div className="instruction-step">
             <span className="step-number">1</span>
