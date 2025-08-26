@@ -28,9 +28,37 @@ body {
   text-align: center;
 }
 
-.app-header h1 {
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
   margin-bottom: 1rem;
+}
+
+.app-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+  animation: logoGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes logoGlow {
+  0% {
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+    transform: scale(1);
+  }
+  100% {
+    box-shadow: 0 6px 25px rgba(0, 212, 255, 0.6);
+    transform: scale(1.05);
+  }
+}
+
+.app-header h1 {
+  margin: 0;
   font-size: 1.8rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .app-nav {
@@ -89,12 +117,41 @@ body {
 
 .loading-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background: linear-gradient(135deg, #4CAF50, #45a049);
   color: white;
   font-size: 1.2rem;
+}
+
+.loading-logo {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 2rem;
+  animation: loadingPulse 2s ease-in-out infinite;
+}
+
+.loading-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes loadingPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
 }
 
 .instructions-container {
@@ -469,6 +526,16 @@ body {
 
 /* Responsive design */
 @media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .app-logo {
+    width: 50px;
+    height: 50px;
+  }
+  
   .app-nav {
     flex-direction: column;
     align-items: center;
@@ -497,6 +564,11 @@ body {
 }
 
 @media (max-width: 480px) {
+  .loading-logo {
+    width: 80px;
+    height: 80px;
+  }
+  
   .app-header h1 {
     font-size: 1.5rem;
   }

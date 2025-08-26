@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
+import stressDetectorLogo from './assets/stress-detector-logo.svg';
 
 const LoadingScreen = () => (
   <div className="loading-container">
-    <div>Cargando Detector de Estrés...</div>
+    <img src={stressDetectorLogo} alt="Stress Detector Logo" className="loading-logo" />
+    <div className="loading-text">Cargando Detector de Estrés...</div>
   </div>
 );
 
@@ -510,7 +512,10 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Detector de Estrés</h1>
+        <div className="header-content">
+          <img src={stressDetectorLogo} alt="Stress Detector Logo" className="app-logo" />
+          <h1>Detector de Estrés</h1>
+        </div>
         <nav className="app-nav">
           <button 
             className={`nav-button ${currentScreen === 'home' ? 'active' : ''}`}
