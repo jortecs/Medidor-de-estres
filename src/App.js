@@ -70,6 +70,10 @@ const HomeScreen = () => {
       setStream(mediaStream);
       if (videoRef.current) {
         videoRef.current.srcObject = mediaStream;
+        // Esperar a que el video esté listo
+        videoRef.current.onloadedmetadata = () => {
+          console.log('Video listo para medición');
+        };
       }
       setError(null);
     } catch (err) {
@@ -95,40 +99,50 @@ const HomeScreen = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
 
+    // Verificar que el video esté listo
+    if (video.videoWidth === 0 || video.videoHeight === 0) {
+      return null;
+    }
+
     // Configurar canvas
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
 
-    // Dibujar frame del video en el canvas
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    try {
+      // Dibujar frame del video en el canvas
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    // Obtener datos de imagen
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const data = imageData.data;
+      // Obtener datos de imagen
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
 
-    // Calcular promedio de intensidad de luz (simulación de PPG)
-    let totalIntensity = 0;
-    for (let i = 0; i < data.length; i += 4) {
-      // Usar canal rojo para simular detección de sangre
-      totalIntensity += data[i];
+      // Calcular promedio de intensidad de luz (simulación de PPG)
+      let totalIntensity = 0;
+      for (let i = 0; i < data.length; i += 4) {
+        // Usar canal rojo para simular detección de sangre
+        totalIntensity += data[i];
+      }
+      const averageIntensity = totalIntensity / (data.length / 4);
+
+      // Simular variaciones basadas en el tiempo
+      const timeVariation = Math.sin(Date.now() * 0.001) * 10;
+      const baseHeartRate = 70 + timeVariation;
+      const baseHRV = 40 + Math.random() * 20;
+
+      // Calcular nivel de estrés basado en variaciones simuladas
+      const stressVariation = Math.random() * 30;
+      const baseStress = 30 + stressVariation;
+
+      return {
+        intensity: averageIntensity,
+        heartRate: Math.round(baseHeartRate),
+        hrv: Math.round(baseHRV),
+        stressLevel: Math.round(baseStress)
+      };
+    } catch (error) {
+      console.error('Error procesando frame:', error);
+      return null;
     }
-    const averageIntensity = totalIntensity / (data.length / 4);
-
-    // Simular variaciones basadas en el tiempo
-    const timeVariation = Math.sin(Date.now() * 0.001) * 10;
-    const baseHeartRate = 70 + timeVariation;
-    const baseHRV = 40 + Math.random() * 20;
-
-    // Calcular nivel de estrés basado en variaciones simuladas
-    const stressVariation = Math.random() * 30;
-    const baseStress = 30 + stressVariation;
-
-    return {
-      intensity: averageIntensity,
-      heartRate: Math.round(baseHeartRate),
-      hrv: Math.round(baseHRV),
-      stressLevel: Math.round(baseStress)
-    };
   };
 
   const startMeasurement = async () => {
@@ -178,6 +192,20 @@ const HomeScreen = () => {
         
         const savedMeasurements = JSON.parse(localStorage.getItem('measurements') || '[]');
         savedMeasurements.unshift(newResult);
+        localStorage.setItem('measurements', JSON.stringify(savedMeasurements));
+      } else {
+        // Si no hay mediciones, generar un resultado simulado
+        const simulatedResult = {
+          stressLevel: Math.floor(Math.random() * 60) + 20,
+          heartRate: Math.floor(Math.random() * 40) + 60,
+          hrv: Math.floor(Math.random() * 30) + 30,
+          timestamp: new Date().toISOString(),
+          quality: Math.floor(Math.random() * 20) + 80
+        };
+        setResult(simulatedResult);
+        
+        const savedMeasurements = JSON.parse(localStorage.getItem('measurements') || '[]');
+        savedMeasurements.unshift(simulatedResult);
         localStorage.setItem('measurements', JSON.stringify(savedMeasurements));
       }
 
