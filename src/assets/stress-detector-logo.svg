@@ -1,85 +1,53 @@
 <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <!-- Fondo oscuro con gradiente -->
-  <defs>
-    <radialGradient id="backgroundGradient" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
-    </radialGradient>
-    
-    <!-- Gradiente para el círculo brillante -->
-    <radialGradient id="circleGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.8" />
-      <stop offset="70%" style="stop-color:#00b8e6;stop-opacity:0.6" />
-      <stop offset="100%" style="stop-color:#0099cc;stop-opacity:0.3" />
-    </radialGradient>
-    
-    <!-- Gradiente para el texto brillante -->
-    <linearGradient id="textGlow" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#00ffff;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:1" />
-    </linearGradient>
-    
-    <!-- Filtro de brillo para el texto -->
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-      <feMerge> 
-        <feMergeNode in="coloredBlur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-  </defs>
+  <!-- Fondo beige claro -->
+  <rect width="200" height="200" fill="#f5f5dc"/>
   
-  <!-- Fondo -->
-  <rect width="200" height="200" fill="url(#backgroundGradient)"/>
+  <!-- Círculo principal -->
+  <circle cx="100" cy="80" r="70" fill="#4CAF50" stroke="#2E7D32" stroke-width="3"/>
   
-  <!-- Círculo brillante -->
-  <circle cx="100" cy="80" r="60" fill="url(#circleGlow)" stroke="#00d4ff" stroke-width="2"/>
-  
-  <!-- Persona estresada -->
+  <!-- Persona con cabello largo marrón -->
   <!-- Cabeza -->
-  <ellipse cx="100" cy="70" rx="15" ry="18" fill="#ffdbac"/>
+  <ellipse cx="100" cy="70" rx="18" ry="22" fill="#ffdbac"/>
   
-  <!-- Cabello -->
-  <path d="M85 55 Q100 45 115 55 Q110 65 105 70 Q95 70 90 65 Q85 60 85 55" fill="#8b4513"/>
+  <!-- Cabello largo marrón -->
+  <path d="M82 50 Q100 35 118 50 Q115 65 110 70 Q90 70 85 65 Q82 60 82 50" fill="#8B4513"/>
+  <path d="M85 65 Q90 70 95 75 Q105 75 110 70 Q115 65 118 50" fill="#8B4513"/>
   
-  <!-- Gafas -->
-  <ellipse cx="95" cy="72" rx="6" ry="7" fill="none" stroke="#000" stroke-width="2"/>
-  <ellipse cx="105" cy="72" rx="6" ry="7" fill="none" stroke="#000" stroke-width="2"/>
-  <line x1="101" y1="72" x2="99" y2="72" stroke="#000" stroke-width="2"/>
+  <!-- Gafas redondas -->
+  <ellipse cx="92" cy="72" rx="7" ry="8" fill="none" stroke="#000" stroke-width="2"/>
+  <ellipse cx="108" cy="72" rx="7" ry="8" fill="none" stroke="#000" stroke-width="2"/>
+  <line x1="99" y1="72" x2="101" y2="72" stroke="#000" stroke-width="2"/>
   
-  <!-- Ojos estresados -->
-  <ellipse cx="93" cy="72" rx="2" ry="3" fill="#000"/>
-  <ellipse cx="107" cy="72" rx="2" ry="3" fill="#000"/>
+  <!-- Ojos -->
+  <ellipse cx="90" cy="72" rx="2" ry="3" fill="#000"/>
+  <ellipse cx="110" cy="72" rx="2" ry="3" fill="#000"/>
   
-  <!-- Cejas levantadas -->
-  <path d="M90 68 Q93 65 96 68" fill="none" stroke="#000" stroke-width="1.5"/>
-  <path d="M104 68 Q107 65 110 68" fill="none" stroke="#000" stroke-width="1.5"/>
+  <!-- Boca sonriente -->
+  <path d="M95 80 Q100 85 105 80" fill="none" stroke="#000" stroke-width="2"/>
   
-  <!-- Boca abierta -->
-  <ellipse cx="100" cy="80" rx="3" ry="2" fill="#ff6b6b"/>
-  
-  <!-- Gota de sudor -->
-  <path d="M85 65 Q87 68 85 71 Q83 68 85 65" fill="#87ceeb"/>
-  
-  <!-- Camiseta roja -->
-  <rect x="85" y="85" width="30" height="25" rx="5" fill="#ff4444"/>
+  <!-- Camiseta verde -->
+  <rect x="82" y="88" width="36" height="30" rx="8" fill="#4CAF50"/>
   
   <!-- Brazos -->
-  <ellipse cx="85" cy="95" rx="8" ry="12" fill="#ffdbac"/>
-  <ellipse cx="115" cy="95" rx="8" ry="12" fill="#ffdbac"/>
+  <ellipse cx="82" cy="100" rx="10" ry="15" fill="#ffdbac"/>
+  <ellipse cx="118" cy="100" rx="10" ry="15" fill="#ffdbac"/>
+  
+  <!-- Mochila -->
+  <rect x="85" y="95" width="30" height="25" rx="5" fill="#8B4513"/>
+  <rect x="87" y="97" width="26" height="21" rx="3" fill="#A0522D"/>
   
   <!-- Teléfono -->
-  <rect x="120" y="85" width="12" height="20" rx="2" fill="#333"/>
-  <rect x="121" y="86" width="10" height="18" rx="1" fill="#000"/>
+  <rect x="125" y="85" width="15" height="25" rx="3" fill="#333"/>
+  <rect x="126" y="86" width="13" height="23" rx="2" fill="#000"/>
+  <rect x="128" y="88" width="9" height="19" rx="1" fill="#222"/>
   
-  <!-- Símbolos de estrés (rayos) -->
-  <path d="M75 60 L78 65 L75 70 L80 67 L75 60" fill="#ff0000"/>
-  <path d="M70 55 L73 60 L70 65 L75 62 L70 55" fill="#ff0000"/>
-  <path d="M125 60 L128 65 L125 70 L130 67 L125 60" fill="#ff0000"/>
+  <!-- Burbujas de conversación -->
+  <ellipse cx="140" cy="75" rx="8" ry="6" fill="white" stroke="#ccc" stroke-width="1"/>
+  <ellipse cx="145" cy="70" rx="6" ry="4" fill="white" stroke="#ccc" stroke-width="1"/>
+  <ellipse cx="148" cy="65" rx="4" ry="3" fill="white" stroke="#ccc" stroke-width="1"/>
   
   <!-- Texto "STRESS DETECTOR" -->
-  <text x="100" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="url(#textGlow)" filter="url(#glow)">
+  <text x="100" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2E7D32">
     STRESS DETECTOR
   </text>
 </svg>

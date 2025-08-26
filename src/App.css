@@ -37,20 +37,20 @@ body {
 }
 
 .app-logo {
-  width: 60px;
-  height: 60px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
   animation: logoGlow 2s ease-in-out infinite alternate;
 }
 
 @keyframes logoGlow {
   0% {
-    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
     transform: scale(1);
   }
   100% {
-    box-shadow: 0 6px 25px rgba(0, 212, 255, 0.6);
+    box-shadow: 0 8px 30px rgba(76, 175, 80, 0.7);
     transform: scale(1.05);
   }
 }
@@ -127,8 +127,8 @@ body {
 }
 
 .loading-logo {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   margin-bottom: 2rem;
   animation: loadingPulse 2s ease-in-out infinite;
 }
@@ -532,8 +532,8 @@ body {
   }
   
   .app-logo {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
   }
   
   .app-nav {
@@ -565,8 +565,13 @@ body {
 
 @media (max-width: 480px) {
   .loading-logo {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .app-logo {
+    width: 60px;
+    height: 60px;
   }
   
   .app-header h1 {

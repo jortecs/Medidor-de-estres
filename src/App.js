@@ -514,7 +514,6 @@ function App() {
       <header className="app-header">
         <div className="header-content">
           <img src={stressDetectorLogo} alt="Stress Detector Logo" className="app-logo" />
-          <h1>Detector de Estrés</h1>
         </div>
         <nav className="app-nav">
           <button 
