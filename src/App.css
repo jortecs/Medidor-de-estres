@@ -41,7 +41,6 @@ body {
   height: 200px;
   background-color: white;
   border-radius: 50%;
-  padding: 20px;
   box-shadow: 0 8px 25px rgba(76, 175, 80, 0.5);
   animation: logoGlow 2s ease-in-out infinite alternate;
 }
@@ -133,7 +132,6 @@ body {
   height: 250px;
   background-color: white;
   border-radius: 50%;
-  padding: 25px;
   margin-bottom: 2rem;
   animation: loadingPulse 2s ease-in-out infinite;
 }

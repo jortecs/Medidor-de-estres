@@ -83,12 +83,16 @@ const HomeScreen = () => {
         // Configurar eventos del video
         videoRef.current.onloadedmetadata = () => {
           console.log('Video metadata cargado');
-          setIsCameraReady(true);
+          if (videoRef.current.videoWidth > 0) {
+            setIsCameraReady(true);
+          }
         };
         
         videoRef.current.oncanplay = () => {
           console.log('Video puede reproducirse');
-          setIsCameraReady(true);
+          if (videoRef.current.videoWidth > 0) {
+            setIsCameraReady(true);
+          }
         };
         
         // Intentar reproducir el video
@@ -431,7 +435,7 @@ const HomeScreen = () => {
           </div>
         )}
         
-        {stream && !videoRef.current?.videoWidth && (
+        {stream && !isCameraReady && (
           <div className="camera-loading">
             <div className="loading-spinner"></div>
             <p>Inicializando cámara...</p>
