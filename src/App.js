@@ -15,6 +15,8 @@ const HomeScreen = () => {
   const [dailyCount, setDailyCount] = useState(0);
   const [stream, setStream] = useState(null);
   const [error, setError] = useState(null);
+  const [isCameraReady, setIsCameraReady] = useState(false);
+  const [flashEnabled, setFlashEnabled] = useState(false);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
@@ -73,12 +75,49 @@ const HomeScreen = () => {
         // Esperar a que el video esté listo
         videoRef.current.onloadedmetadata = () => {
           console.log('Video listo para medición');
+          setIsCameraReady(true);
         };
       }
       setError(null);
     } catch (err) {
       setError('No se pudo acceder a la cámara. Verifica los permisos.');
       console.error('Error accessing camera:', err);
+    }
+  };
+
+  const toggleFlash = async () => {
+    if (!stream) return;
+    
+    try {
+      const track = stream.getVideoTracks()[0];
+      if (track && track.getCapabilities && track.getCapabilities().torch) {
+        const newFlashState = !flashEnabled;
+        await track.applyConstraints({
+          advanced: [{ torch: newFlashState }]
+        });
+        setFlashEnabled(newFlashState);
+      } else {
+        // Fallback: intentar activar el flash de otra manera
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          const newStream = await navigator.mediaDevices.getUserMedia({
+            video: {
+              facingMode: 'environment',
+              width: { ideal: 640 },
+              height: { ideal: 480 },
+              torch: !flashEnabled
+            }
+          });
+          setStream(newStream);
+          if (videoRef.current) {
+            videoRef.current.srcObject = newStream;
+          }
+          setFlashEnabled(!flashEnabled);
+        }
+      }
+    } catch (error) {
+      console.error('Error al cambiar flash:', error);
+      // Si no se puede controlar el flash, mostrar mensaje
+      alert('El flash no está disponible en este dispositivo');
     }
   };
 
@@ -146,11 +185,33 @@ const HomeScreen = () => {
   };
 
   const startMeasurement = async () => {
+    // Si no hay stream, iniciar cámara primero
     if (!stream) {
       await startCamera();
+      // Esperar un momento para que la cámara se inicialice
+      setTimeout(() => {
+        if (isCameraReady) {
+          startMeasurementProcess();
+        }
+      }, 1000);
       return;
     }
 
+    // Si ya hay stream pero no está listo, esperar
+    if (!isCameraReady) {
+      setTimeout(() => {
+        if (isCameraReady) {
+          startMeasurementProcess();
+        }
+      }, 500);
+      return;
+    }
+
+    // Si todo está listo, iniciar medición
+    startMeasurementProcess();
+  };
+
+  const startMeasurementProcess = () => {
     setIsMeasuring(true);
     setResult(null);
 
@@ -304,6 +365,13 @@ const HomeScreen = () => {
                 </div>
               </div>
             )}
+            <button 
+              className={`flash-button ${flashEnabled ? 'active' : ''}`}
+              onClick={toggleFlash}
+              disabled={isMeasuring}
+            >
+              {flashEnabled ? '🔦 Flash ON' : '💡 Flash OFF'}
+            </button>
           </div>
         ) : (
           <div className="camera-placeholder">
