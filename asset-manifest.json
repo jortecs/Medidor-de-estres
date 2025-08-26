@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/Medidor-de-estres/static/css/main.d8900b92.css",
-    "main.js": "/Medidor-de-estres/static/js/main.07f57b1b.js",
-    "static/media/stress-detector-logo.svg": "/Medidor-de-estres/static/media/stress-detector-logo.d057988c11da1fb560bc13f074efa17f.svg",
+    "main.css": "/Medidor-de-estres/static/css/main.7ea248c4.css",
+    "main.js": "/Medidor-de-estres/static/js/main.1d0d9c69.js",
+    "static/media/logo.png": "/Medidor-de-estres/static/media/logo.e7438d51277bad3d72d9.png",
     "index.html": "/Medidor-de-estres/index.html",
-    "main.d8900b92.css.map": "/Medidor-de-estres/static/css/main.d8900b92.css.map",
-    "main.07f57b1b.js.map": "/Medidor-de-estres/static/js/main.07f57b1b.js.map"
+    "main.7ea248c4.css.map": "/Medidor-de-estres/static/css/main.7ea248c4.css.map",
+    "main.1d0d9c69.js.map": "/Medidor-de-estres/static/js/main.1d0d9c69.js.map"
   },
   "entrypoints": [
-    "static/css/main.d8900b92.css",
-    "static/js/main.07f57b1b.js"
+    "static/css/main.7ea248c4.css",
+    "static/js/main.1d0d9c69.js"
   ]
 }
