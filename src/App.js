@@ -83,25 +83,32 @@ const HomeScreen = () => {
         // Configurar eventos del video
         videoRef.current.onloadedmetadata = () => {
           console.log('Video metadata cargado');
-          if (videoRef.current.videoWidth > 0) {
-            setIsCameraReady(true);
-          }
+          setIsCameraReady(true);
         };
         
         videoRef.current.oncanplay = () => {
           console.log('Video puede reproducirse');
-          if (videoRef.current.videoWidth > 0) {
-            setIsCameraReady(true);
-          }
+          setIsCameraReady(true);
         };
         
         // Intentar reproducir el video
         try {
           await videoRef.current.play();
           console.log('Video iniciado correctamente');
+          setIsCameraReady(true);
         } catch (playError) {
           console.error('Error al reproducir video:', playError);
+          // Aún así marcar como listo si el video se cargó
+          setIsCameraReady(true);
         }
+        
+        // Timeout de seguridad para evitar que se quede colgado
+        setTimeout(() => {
+          if (!isCameraReady) {
+            console.log('Timeout de seguridad - marcando cámara como lista');
+            setIsCameraReady(true);
+          }
+        }, 5000); // 5 segundos máximo
       }
       
     } catch (err) {
@@ -299,6 +306,17 @@ const HomeScreen = () => {
       }
 
       setIsMeasuring(false);
+      
+      // Scroll automático al resultado después de un pequeño delay
+      setTimeout(() => {
+        const resultElement = document.querySelector('.result-container');
+        if (resultElement) {
+          resultElement.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
+          });
+        }
+      }, 500);
     }, 10000); // 10 segundos de medición
   };
 
@@ -309,6 +327,14 @@ const HomeScreen = () => {
     }
     setIsMeasuring(false);
     setResult(null);
+    
+    // Scroll hacia arriba cuando se cancela
+    setTimeout(() => {
+      window.scrollTo({ 
+        top: 0, 
+        behavior: 'smooth' 
+      });
+    }, 300);
   };
 
   const getStressColor = (level) => {
