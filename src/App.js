@@ -381,21 +381,24 @@ const HomeScreen = () => {
           <div className="instruction-step">
             <span className="step-number">1</span>
             <div className="step-content">
-              <p>Dale al botón del medidor</p>
+              <p><strong>Dale al botón "Iniciar Medición"</strong></p>
+              <p>Esto activará tu cámara y solicitará permisos</p>
             </div>
           </div>
           
           <div className="instruction-step">
             <span className="step-number">2</span>
             <div className="step-content">
-              <p>Enciende el flash</p>
+              <p><strong>Enciende el flash</strong></p>
+              <p>Toca el botón del flash para iluminar tu dedo</p>
             </div>
           </div>
           
           <div className="instruction-step">
             <span className="step-number">3</span>
             <div className="step-content">
-              <p>Coloca tu dedo donde brilla el flash y tapa la cámara</p>
+              <p><strong>Coloca tu dedo sobre la cámara</strong></p>
+              <p>Cubre completamente la lente donde brilla el flash</p>
             </div>
           </div>
         </div>
