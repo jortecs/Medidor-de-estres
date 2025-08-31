@@ -2,6 +2,9 @@
 
 Una aplicación web para medir y gestionar el nivel de estrés mediante la simulación de medición de frecuencia cardíaca.
 
+![Image](https://github.com/user-attachments/assets/06831b5a-932e-4829-81c2-1e414eed7d69)
+
+
 ## 🌟 Características
 
 - **Medición Simulada**: Simula la medición de frecuencia cardíaca y nivel de estrés
@@ -11,10 +14,15 @@ Una aplicación web para medir y gestionar el nivel de estrés mediante la simul
 - **Consejos**: Accede a técnicas de relajación y gestión del estrés
 - **Configuración**: Personaliza tu experiencia con la aplicación
 - **Interfaz Responsiva**: Funciona perfectamente en dispositivos móviles y de escritorio
+![Image](https://github.com/user-attachments/assets/d51fb5a9-3c81-4080-bc17-7fef93643039)
+
 
 ## 🚀 Demo en Vivo
 
 Visita la aplicación en: [https://jortecs.github.io/Medidor-de-estres](https://jortecs.github.io/Medidor-de-estres)
+![Image](https://github.com/user-attachments/assets/42019997-a908-49d5-abbf-4014aa870016)
+![Image](https://github.com/user-attachments/assets/496ef74d-5799-4839-974c-d5e82aeabe9d)
+![Image](https://github.com/user-attachments/assets/0ec383dc-52eb-4e15-9954-b8ddc9f025d3)
 
 ## 🛠️ Tecnologías Utilizadas
 
@@ -82,106 +90,7 @@ Visita la aplicación en: [https://jortecs.github.io/Medidor-de-estres](https://
    - Estos cambios corresponden a tu pulso sanguíneo
    - La app calcula tu frecuencia cardíaca y nivel de estrés
 
-### Tecnología PPG (Fotopletismografía):
-La aplicación utiliza la tecnología PPG para medir tu frecuencia cardíaca. El flash ilumina tu dedo y la cámara detecta los cambios microscópicos en el color de tu piel que ocurren con cada latido del corazón. Estos datos se procesan para calcular tu nivel de estrés basado en la variabilidad de tu frecuencia cardíaca.
 
-## 🚀 Instalación y Desarrollo
-
-### Prerrequisitos
-- Node.js (versión 16 o superior)
-- npm o yarn
-
-### Pasos de instalación
-
-1. **Clonar el repositorio**
-   ```bash
-   git clone https://github.com/jortecs/Medidor-de-estres.git
-   cd Medidor-de-estres
-   ```
-
-2. **Instalar dependencias**
-   ```bash
-   npm install
-   ```
-
-3. **Ejecutar en modo desarrollo**
-   ```bash
-   npm start
-   ```
-
-4. **Construir para producción**
-   ```bash
-   npm run build
-   ```
-
-## 🌐 Despliegue
-
-La aplicación se despliega automáticamente a GitHub Pages cuando se hace push a la rama `main`.
-
-### Despliegue Manual
-
-1. **Construir la aplicación**
-   ```bash
-   npm run build
-   ```
-
-2. **Desplegar a GitHub Pages**
-   ```bash
-   npm run deploy
-   ```
-
-## 📁 Estructura del Proyecto
-
-```
-src/
-├── App.js                 # Componente principal
-├── index.js              # Punto de entrada web
-├── screens/              # Pantallas de la aplicación
-│   ├── HomeScreen.js     # Pantalla principal
-│   ├── HistoryScreen.js  # Historial de mediciones
-│   ├── TipsScreen.js     # Consejos y técnicas
-│   └── SettingsScreen.js # Configuración
-├── services/             # Servicios de la aplicación
-│   ├── DatabaseService.js
-│   ├── AdService.js
-│   ├── IAPService.js
-│   └── StorageService.js
-└── utils/                # Utilidades
-    └── stressCalculator.js
-```
-
-## 🔧 Scripts Disponibles
-
-- `npm start`: Inicia el servidor de desarrollo
-- `npm run build`: Construye la aplicación para producción
-- `npm run deploy`: Despliega a GitHub Pages
-- `npm run android`: Ejecuta en Android (React Native)
-- `npm run ios`: Ejecuta en iOS (React Native)
-
-## 🤝 Contribuir
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
-
-## 📞 Contacto
-
-- **Autor**: Jorge
-- **GitHub**: [@jortecs](https://github.com/jortecs)
-- **Repositorio**: [https://github.com/jortecs/Medidor-de-estres](https://github.com/jortecs/Medidor-de-estres)
-
-## 🙏 Agradecimientos
-
-- React Native Web por la compatibilidad multiplataforma
-- React Navigation por el sistema de navegación
-- GitHub Pages por el hosting gratuito
-- La comunidad de React por las herramientas y librerías
 
 ---
 
